@@ -2,18 +2,24 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Calendar, Users, Video, Clock } from "lucide-react"
+import { Calendar, Users, Video, Clock, Loader2 } from "lucide-react"
 import { useClasses } from "@/contexts/class-context"
 import { useClients } from "@/contexts/client-context"
 import { useAuth } from "@/contexts/auth-context"
 import { format, isToday } from "date-fns"
 import { useRouter } from 'next/navigation'
+import { useStreamVideoClient } from '@stream-io/video-react-sdk'
+import { useState } from "react"
+import { useToast } from "@/hooks/use-toast"
 
 export default function DashboardPage() {
   const { classes } = useClasses()
   const { clients } = useClients()
   const { user } = useAuth()
   const router = useRouter()
+  const client = useStreamVideoClient()
+  const { toast } = useToast()
+  const [loadingClassId, setLoadingClassId] = useState<string | null>(null)
 
   // Calculate statistics
   const todayClasses = classes.filter(class_ => 
@@ -43,8 +49,50 @@ export default function DashboardPage() {
       clients: class_.enrolledClients.length
     }))
 
-  const handleStartClass = (classId: string) => {
-    router.push(`/classroom/${classId}`)
+  const handleStartClass = async (classId: string) => {
+    if (!client || !user) {
+      console.error('Client or user not found: ', client, user);
+      toast({
+        title: "Error",
+        description: "Failed to start the class. Please try again.",
+        variant: "destructive"
+      })
+      return;
+    }
+    
+    setLoadingClassId(classId)
+    try {
+      const classData = classes.find(c => c.id === classId);
+      const role = user.role === 'coach' ? 'admin' : 'client';
+
+      const id = crypto.randomUUID()
+
+      const call = await client.call('default', id).getOrCreate({
+        data: {
+          starts_at: new Date(classData?.datetime || '').toISOString(),
+          members: [{ user_id: user.id, role }],
+          custom: {
+            description: classData?.description || '',
+          },
+        }
+      });
+
+      router.push(`/classroom/${call.call.id}`)
+      toast({
+        title: "Class Started",
+        description: "You are now in the class. Enjoy!",
+        variant: "default"
+      })
+    } catch (error) {
+      console.error('Failed to create call:', error)
+      toast({
+        title: "Error",
+        description: "Failed to start the class. Please try again.",
+        variant: "destructive"
+      })
+    } finally {
+      setLoadingClassId(null)
+    }
   }
 
   return (
@@ -121,8 +169,13 @@ export default function DashboardPage() {
                         variant="outline" 
                         size="sm"
                         onClick={() => handleStartClass(class_.id)}
+                        disabled={loadingClassId === class_.id}
                       >
-                        Start Class
+                        {loadingClassId === class_.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          'Start Class'
+                        )}
                       </Button>
                     </div>
                   </div>

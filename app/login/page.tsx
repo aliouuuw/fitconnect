@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
@@ -13,30 +13,35 @@ import { useAuth } from "@/contexts/auth-context"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
+  const { user } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { toast } = useToast()
   const router = useRouter()
   const { login } = useAuth()
 
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard")
+    }
+
+  }, [user, router])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
     try {
-      await login(email, password)
-      toast({
-        title: "Success!",
-        description: "You have successfully logged in.",
-      })
-      router.push("/dashboard")
+      const success = await login(email, password)
+      if (success) {
+        toast({
+          title: "Success!",
+          description: "You have successfully logged in.",
+        })
+        router.push("/dashboard")
+      }
     } catch (error) {
       console.error(error)
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Invalid credentials. Please try again.",
-      })
     } finally {
       setIsLoading(false)
     }

@@ -1,35 +1,52 @@
-'use client';
+"use client";
 
-import { useParams } from 'next/navigation';
-import { useClasses } from '@/contexts/class-context';
-export default function ClassroomPage() {
-  const params = useParams();
-  const classId = params.id as string;
-  const { classes } = useClasses();
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
+
+import { StreamCall, StreamTheme } from '@stream-io/video-react-sdk';
+
+import { useGetCallById } from '@/hooks/useGetCallById';
+import Alert from '@/components/Alert';
+import MeetingSetup from '@/components/MeetingSetup';
+import MeetingRoom from '@/components/MeetingRoom';
+import Header from "@/components/ui/Header";
+import Loader from "@/components/Loader";
+
+export default function ClassroomPage({}) {
+  const { id } = useParams();
+  const { call, isCallLoading } = useGetCallById(id as string);
+  const { isLoaded, user } = useAuth();
   
-  const classDetails = classes.find(c => c.id === classId);
+  const [isSetupComplete, setIsSetupComplete] = useState(false);
 
-  if (!classDetails) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-500">Class Not Found</h1>
-          <p className="mt-2 text-muted-foreground">
-            The class you&apos;re looking for doesn&apos;t exist or has been removed.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  if (!isLoaded || isCallLoading) return <Loader />;
+
+  if (!call) return (
+    <p className="text-center text-3xl font-bold">
+      Call Not Found
+    </p>
+  );
+
+  // get more info about custom call type:  https://getstream.io/video/docs/react/guides/configuring-call-types/
+  const notAllowed = call.type === 'invited' && (!user || !call.state.members.find((m) => m.user.id === user.id));
+
+  if (notAllowed) return <Alert title="You are not allowed to join this meeting" />;
 
   return (
-    <div className="h-screen w-full">
-      <div className="absolute top-0 left-0 right-0 z-10 bg-background/80 backdrop-blur-sm p-4">
-        <h1 className="text-xl font-semibold">{classDetails.name}</h1>
-      </div>
-      <div className="flex items-center justify-center h-screen">
-        <h1 className="text-2xl font-bold">Classroom Meeting</h1>
-      </div>
+    <div className="h-screen max-h-screen w-full">
+      <Header />
+      <main>
+        <StreamCall call={call}>
+          <StreamTheme>
+            {!isSetupComplete ? (
+              <MeetingSetup setIsSetupComplete={setIsSetupComplete} />
+            ) : (
+              <MeetingRoom />
+            )}
+          </StreamTheme>
+        </StreamCall>
+      </main>
     </div>
   );
 }

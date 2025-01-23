@@ -67,7 +67,7 @@ export default function DashboardLayout({
           </div>
         </div>
       </nav>
-      <main>{children}</main>
+        <main>{children}</main>
     </div>
   )
 }

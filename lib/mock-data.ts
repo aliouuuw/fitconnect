@@ -1,16 +1,18 @@
 import { User, Class, Client } from './types';
-import { addHours } from 'date-fns';
+import { addMinutes } from 'date-fns';
 
 export const mockUsers: User[] = [
   {
     id: '1',
     email: 'coach@example.com',
+    password: 'test',
     name: 'John Trainer',
     role: 'coach',
   },
   {
     id: '2',
     email: 'client@example.com',
+    password: 'test',
     name: 'Alice Student',
     role: 'client',
   },
@@ -22,7 +24,7 @@ export const mockClasses: Class[] = [
     name: 'Morning HIIT',
     description: 'High-intensity interval training to start your day',
     coachId: '1',
-    datetime: addHours(new Date(), 1).toISOString(),
+    datetime: addMinutes(new Date(), 3).toISOString(),
     duration: 45,
     maxParticipants: 10,
     enrolledClients: ['2'],
@@ -32,7 +34,7 @@ export const mockClasses: Class[] = [
     name: 'Strength Training',
     description: 'Build muscle and improve strength',
     coachId: '1',
-    datetime: addHours(new Date(), 2).toISOString(),
+    datetime: addMinutes(new Date(), 3).toISOString(),
     duration: 60,
     maxParticipants: 8,
     enrolledClients: ['2'],

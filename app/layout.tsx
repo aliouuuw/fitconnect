@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { ClassProvider } from "@/contexts/class-context";
 import { ClientProvider } from "@/contexts/client-context";
 import Header from "@/components/ui/Header";
+import StreamVideoProvider from "@/providers/StreamClientProvider";
 
 // These providers are mocked for now
 
@@ -36,7 +37,9 @@ export default function RootLayout({
               <ClassProvider>
                 <ClientProvider>
                   <Header />
-                  {children}
+                  <StreamVideoProvider>
+                    {children}
+                  </StreamVideoProvider>
                   <Toaster />
                 </ClientProvider>
               </ClassProvider>
