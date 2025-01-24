@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from 'next-intl';
 import { useState } from "react"
 import { useClients } from "@/contexts/client-context"
 import { useClasses } from "@/contexts/class-context"
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/dialog"
 
 export default function ClientsPage() {
+  const t = useTranslations('clients');
   const { clients, addClient, deleteClient } = useClients()
   const { classes } = useClasses()
   const { user } = useAuth()
@@ -31,18 +33,18 @@ export default function ClientsPage() {
   })
 
   const handleAddClient = () => {
-    if (!user) return
+    if (!user) return;
 
     addClient({
       ...newClient,
       coachId: user.id,
       enrolledClasses: [],
-    })
+    });
 
     toast({
       title: "Success",
-      description: "Client has been added successfully.",
-    })
+      description: t('success.added'),
+    });
 
     setNewClient({
       name: "",
@@ -63,21 +65,21 @@ export default function ClientsPage() {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">Client Management</h1>
+          <h1 className="text-4xl font-bold">{t('title')}</h1>
           <Dialog>
             <DialogTrigger asChild>
               <Button>
                 <UserPlus className="mr-2 h-4 w-4" />
-                Add New Client
+                {t('addNew')}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Add New Client</DialogTitle>
+                <DialogTitle>{t('addNew')}</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name">{t('form.fullName')}</Label>
                   <Input
                     id="name"
                     value={newClient.name}

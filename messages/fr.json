@@ -1,0 +1,118 @@
+{
+  "meetingSetup": {
+    "title": "Configuration",
+    "notStarted": "Votre réunion n'a pas encore commencé. Elle est prévue pour {time}",
+    "ended": "L'appel a été terminé par l'hôte",
+    "joinWithoutDevices": "Rejoindre sans micro ni caméra",
+    "joinButton": "Rejoindre la réunion"
+  },
+  "common": {
+    "appName": "FitConnect",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "classes": "Cours",
+    "clients": "Clients"
+  },
+  "home": {
+    "hero": {
+      "title": "Transformez votre entreprise de coaching en ligne",
+      "subtitle": "Connectez-vous avec des clients du monde entier, dispensez des séances d'entraînement personnalisées et développez votre entreprise de coaching fitness avec notre plateforme professionnelle.",
+      "getStarted": "Commencer",
+      "learnMore": "En savoir plus"
+    },
+    "features": {
+      "personalizedTraining": {
+        "title": "Entraînement personnalisé",
+        "description": "Créez des programmes d'entraînement personnalisés et suivez efficacement les progrès des clients."
+      },
+      "liveSessions": {
+        "title": "Sessions en direct",
+        "description": "Menez des séances d'entraînement vidéo de haute qualité avec un son cristallin."
+      },
+      "smartScheduling": {
+        "title": "Planification intelligente",
+        "description": "Gérez votre calendrier et les réservations des clients en un seul endroit."
+      },
+      "clientManagement": {
+        "title": "Gestion des clients",
+        "description": "Suivez les progrès des clients, les notes et l'historique des communications."
+      }
+    },
+    "cta": {
+      "title": "Prêt à transformer votre entreprise de coaching ?",
+      "subtitle": "Rejoignez des milliers de professionnels du fitness qui ont déjà élevé leur expérience de coaching.",
+      "button": "Commencer l'essai gratuit"
+    },
+    "footer": {
+      "about": "À propos",
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "contact": "Contact",
+      "rights": "Tous droits réservés."
+    }
+  },
+  "dashboard": {
+    "welcome": "Bon retour, {name}",
+    "stats": {
+      "todayClasses": "Cours aujourd'hui",
+      "activeClients": "Clients actifs",
+      "hoursCoached": "Heures de coaching",
+      "avgSession": "Durée moyenne"
+    },
+    "upcomingClasses": {
+      "title": "Prochains cours",
+      "noClasses": "Aucun cours à venir",
+      "startClass": "Commencer le cours"
+    }
+  },
+  "classes": {
+    "title": "Gestion des cours",
+    "addNew": "Ajouter un cours",
+    "createNew": "Créer un nouveau cours",
+    "edit": "Modifier le cours",
+    "form": {
+      "name": "Nom du cours",
+      "description": "Description",
+      "datetime": "Date et heure",
+      "duration": "Durée (minutes)",
+      "maxParticipants": "Participants max"
+    },
+    "actions": {
+      "create": "Créer le cours",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "start": "Commencer"
+    },
+    "success": {
+      "created": "Le cours a été créé avec succès.",
+      "updated": "Le cours a été mis à jour avec succès.",
+      "deleted": "Le cours a été supprimé."
+    }
+  },
+  "clients": {
+    "title": "Gestion des clients",
+    "addNew": "Ajouter un client",
+    "form": {
+      "fullName": "Nom complet",
+      "email": "Email",
+      "phone": "Téléphone"
+    },
+    "enrolledClasses": "Cours inscrits",
+    "actions": {
+      "add": "Ajouter le client",
+      "delete": "Supprimer le client"
+    },
+    "success": {
+      "added": "Le client a été ajouté avec succès.",
+      "removed": "Le client a été supprimé."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenue",
+      "description": "Entrer vos informations pour vous connecter"
+    }
+  }
+}

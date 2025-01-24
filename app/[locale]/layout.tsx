@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./globals.css";
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
@@ -8,6 +9,10 @@ import { ClassProvider } from "@/contexts/class-context";
 import { ClientProvider } from "@/contexts/client-context";
 import Header from "@/components/ui/Header";
 import StreamVideoProvider from "@/providers/StreamClientProvider";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
 // These providers are mocked for now
 
@@ -19,32 +24,44 @@ export const metadata: Metadata = {
     "Professional online coaching platform connecting fitness trainers with clients",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  const { locale } = await params;
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+ 
+  const messages = await getMessages();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${instrumentSans.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AuthProvider>
               <ClassProvider>
                 <ClientProvider>
-                  <Header />
                   <StreamVideoProvider>
-                    {children}
+                    <main>
+                      <Header />
+                      {children}
+                    </main>
                   </StreamVideoProvider>
                   <Toaster />
                 </ClientProvider>
               </ClassProvider>
-          </AuthProvider>
-        </ThemeProvider>
+            </AuthProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 "use client"
 
+import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calendar, Users, Video, Clock, Loader2 } from "lucide-react"
@@ -13,6 +14,8 @@ import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 
 export default function DashboardPage() {
+  const t = useTranslations('dashboard');
+  const tClasses = useTranslations('classes');
   const { classes } = useClasses()
   const { clients } = useClients()
   const { user } = useAuth()
@@ -98,15 +101,16 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl font-bold">Welcome back, {user?.name || "Coach"}</h1>
+        <h1 className="text-4xl font-bold">
+          {t('welcome', { name: user?.name || "Coach" })}
+        </h1>
         
-        {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card>
             <CardContent className="flex items-center p-6">
               <Calendar className="h-8 w-8 text-primary mr-4" />
               <div>
-                <p className="text-sm text-muted-foreground">Today&apos;s Classes</p>
+                <p className="text-sm text-muted-foreground">{t('stats.todayClasses')}</p>
                 <h3 className="text-2xl font-bold">{todayClasses}</h3>
               </div>
             </CardContent>
@@ -116,7 +120,7 @@ export default function DashboardPage() {
             <CardContent className="flex items-center p-6">
               <Users className="h-8 w-8 text-primary mr-4" />
               <div>
-                <p className="text-sm text-muted-foreground">Active Clients</p>
+                <p className="text-sm text-muted-foreground">{t('stats.activeClients')}</p>
                 <h3 className="text-2xl font-bold">{activeClients}</h3>
               </div>
             </CardContent>
@@ -126,7 +130,7 @@ export default function DashboardPage() {
             <CardContent className="flex items-center p-6">
               <Video className="h-8 w-8 text-primary mr-4" />
               <div>
-                <p className="text-sm text-muted-foreground">Hours Coached</p>
+                <p className="text-sm text-muted-foreground">{t('stats.hoursCoached')}</p>
                 <h3 className="text-2xl font-bold">{Math.round(totalHours)}</h3>
               </div>
             </CardContent>
@@ -136,7 +140,7 @@ export default function DashboardPage() {
             <CardContent className="flex items-center p-6">
               <Clock className="h-8 w-8 text-primary mr-4" />
               <div>
-                <p className="text-sm text-muted-foreground">Avg. Session</p>
+                <p className="text-sm text-muted-foreground">{t('stats.avgSession')}</p>
                 <h3 className="text-2xl font-bold">{averageSessionLength}m</h3>
               </div>
             </CardContent>
@@ -146,7 +150,7 @@ export default function DashboardPage() {
         {/* Upcoming Classes */}
         <Card>
           <CardHeader>
-            <CardTitle>Upcoming Classes</CardTitle>
+            <CardTitle>{t('upcomingClasses.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -174,7 +178,7 @@ export default function DashboardPage() {
                         {loadingClassId === class_.id ? (
                           <Loader2 className="h-4 w-4 animate-spin" />
                         ) : (
-                          'Start Class'
+                          tClasses('actions.start')
                         )}
                       </Button>
                     </div>
@@ -182,7 +186,7 @@ export default function DashboardPage() {
                 ))
               ) : (
                 <p className="text-center text-muted-foreground py-4">
-                  No upcoming classes scheduled
+                  {t('upcomingClasses.noClasses')}
                 </p>
               )}
             </div>
@@ -190,5 +194,5 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

@@ -10,8 +10,10 @@ import { useToast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/contexts/auth-context"
+import { useTranslations } from 'next-intl'
 
 export default function LoginPage() {
+  const t = useTranslations('auth')
   const [isLoading, setIsLoading] = useState(false)
   const { user } = useAuth()
   const [email, setEmail] = useState("")
@@ -51,9 +53,9 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Welcome back</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">{t('login.title')}</CardTitle>
           <CardDescription className="text-center">
-            Enter your credentials to access your account
+            {t('login.description')}
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

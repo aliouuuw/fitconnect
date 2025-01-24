@@ -18,8 +18,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl';
 
 export default function ClassesPage() {
+  const t = useTranslations('classes')
   const { classes, addClass, updateClass, deleteClass } = useClasses()
   const { user } = useAuth()
   const { toast } = useToast()
@@ -119,18 +121,18 @@ export default function ClassesPage() {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">Class Management</h1>
+          <h1 className="text-4xl font-bold">{t('title')}</h1>
           <Dialog>
             <DialogTrigger asChild>
-              <Button>Add New Class</Button>
+              <Button>{t('addNew')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Create New Class</DialogTitle>
+                <DialogTitle>{t('createNew')}</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Class Name</Label>
+                  <Label htmlFor="name">{t('form.name')}</Label>
                   <Input
                     id="name"
                     value={newClass.name}

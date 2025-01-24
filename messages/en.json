@@ -1,0 +1,118 @@
+{
+  "meetingSetup": {
+    "title": "Setup",
+    "notStarted": "Your Meeting has not started yet. It is scheduled for {time}",
+    "ended": "The call has been ended by the host",
+    "joinWithoutDevices": "Join with mic and camera off",
+    "joinButton": "Join meeting"
+  },
+  "common": {
+    "appName": "FitConnect",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "classes": "Classes",
+    "clients": "Clients"
+  },
+  "home": {
+    "hero": {
+      "title": "Transform Your Coaching Business Online",
+      "subtitle": "Connect with clients globally, deliver personalized training sessions, and grow your fitness coaching business with our professional platform.",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More"
+    },
+    "features": {
+      "personalizedTraining": {
+        "title": "Personalized Training",
+        "description": "Create custom workout plans and track client progress efficiently."
+      },
+      "liveSessions": {
+        "title": "Live Sessions",
+        "description": "Conduct high-quality video training sessions with crystal clear audio."
+      },
+      "smartScheduling": {
+        "title": "Smart Scheduling",
+        "description": "Manage your calendar and client bookings in one place."
+      },
+      "clientManagement": {
+        "title": "Client Management",
+        "description": "Keep track of client progress, notes, and communication history."
+      }
+    },
+    "cta": {
+      "title": "Ready to transform your coaching business?",
+      "subtitle": "Join thousands of fitness professionals who have already elevated their coaching experience.",
+      "button": "Start Free Trial"
+    },
+    "footer": {
+      "about": "About Us",
+      "features": "Features",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "rights": "All rights reserved."
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {name}",
+    "stats": {
+      "todayClasses": "Today's Classes",
+      "activeClients": "Active Clients",
+      "hoursCoached": "Hours Coached",
+      "avgSession": "Avg. Session"
+    },
+    "upcomingClasses": {
+      "title": "Upcoming Classes",
+      "noClasses": "No upcoming classes scheduled",
+      "startClass": "Start Class"
+    }
+  },
+  "classes": {
+    "title": "Class Management",
+    "addNew": "Add New Class",
+    "createNew": "Create New Class",
+    "edit": "Edit Class",
+    "form": {
+      "name": "Class Name",
+      "description": "Description",
+      "datetime": "Date & Time",
+      "duration": "Duration (minutes)",
+      "maxParticipants": "Max Participants"
+    },
+    "actions": {
+      "create": "Create Class",
+      "update": "Update Class",
+      "delete": "Delete Class",
+      "start": "Start Class"
+    },
+    "success": {
+      "created": "Class has been created successfully.",
+      "updated": "Class has been updated successfully.",
+      "deleted": "Class has been deleted."
+    }
+  },
+  "clients": {
+    "title": "Client Management",
+    "addNew": "Add New Client",
+    "form": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "enrolledClasses": "Enrolled Classes",
+    "actions": {
+      "add": "Add Client",
+      "delete": "Delete Client"
+    },
+    "success": {
+      "added": "Client has been added successfully.",
+      "removed": "Client has been removed."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "description": "Enter your credentials to access your account"
+    }
+  }
+}

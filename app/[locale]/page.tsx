@@ -2,80 +2,81 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Dumbbell, Users, Video, Calendar } from "lucide-react"
 import Link from "next/link"
+import { getTranslations } from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations('home');
   return (
     <div className="min-h-screen bg-background">
       <main className="relative bg-background py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-6xl">
-              Transform Your Coaching Business Online
+              {t("hero.title")}
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Connect with clients globally, deliver personalized training sessions, and grow your fitness coaching business with our professional platform.
+              {t("hero.subtitle")}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link href="/login">
-                <Button size="lg">Get Started</Button>
+                <Button size="lg">{t("hero.getStarted")}</Button>
               </Link>
               <Link href="#features">
-                <Button variant="outline" size="lg">Learn More</Button>
+                <Button variant="outline" size="lg">{t("hero.learnMore")}</Button>
               </Link>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Features Section */}
       <section id="features" className="py-24 bg-muted/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <Dumbbell className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Personalized Training</h3>
-              <p className="text-muted-foreground">Create custom workout plans and track client progress efficiently.</p>
+              <h3 className="text-xl font-semibold mb-2">{t("features.personalizedTraining.title")}</h3>
+              <p className="text-muted-foreground">{t("features.personalizedTraining.description")}</p>
             </Card>
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <Video className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Live Sessions</h3>
-              <p className="text-muted-foreground">Conduct high-quality video training sessions with crystal clear audio.</p>
+              <h3 className="text-xl font-semibold mb-2">{t("features.liveSessions.title")}</h3>
+              <p className="text-muted-foreground">{t("features.liveSessions.description")}</p>
             </Card>
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <Calendar className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Smart Scheduling</h3>
-              <p className="text-muted-foreground">Manage your calendar and client bookings in one place.</p>
+              <h3 className="text-xl font-semibold mb-2">{t("features.smartScheduling.title")}</h3>
+              <p className="text-muted-foreground">{t("features.smartScheduling.description")}</p>
             </Card>
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <Users className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Client Management</h3>
-              <p className="text-muted-foreground">Keep track of client progress, notes, and communication history.</p>
+              <h3 className="text-xl font-semibold mb-2">{t("features.clientManagement.title")}</h3>
+              <p className="text-muted-foreground">{t("features.clientManagement.description")}</p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready to transform your coaching business?</h2>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              {t('cta.title')}
+            </h2>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Join thousands of fitness professionals who have already elevated their coaching experience.
+              {t('cta.subtitle')}
             </p>
             <div className="mt-10">
               <Link href="/login">
-                <Button size="lg" className="px-8">Start Free Trial</Button>
+                <Button size="lg" className="px-8">{t('cta.button')}</Button>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-muted/50 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -86,10 +87,10 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
-                <li><Link href="/about" className="text-muted-foreground hover:text-primary">About Us</Link></li>
-                <li><Link href="/features" className="text-muted-foreground hover:text-primary">Features</Link></li>
-                <li><Link href="/pricing" className="text-muted-foreground hover:text-primary">Pricing</Link></li>
-                <li><Link href="/contact" className="text-muted-foreground hover:text-primary">Contact</Link></li>
+                <li><Link href="/about" className="text-muted-foreground hover:text-primary">{t("footer.about")}</Link></li>
+                <li><Link href="/features" className="text-muted-foreground hover:text-primary">{t("footer.features")}</Link></li>
+                <li><Link href="/pricing" className="text-muted-foreground hover:text-primary">{t("footer.pricing")}</Link></li>
+                <li><Link href="/contact" className="text-muted-foreground hover:text-primary">{t("footer.contact")}</Link></li>
               </ul>
             </div>
             <div>

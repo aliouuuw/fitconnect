@@ -7,8 +7,11 @@ import Link from "next/link";
 import { Sun, Moon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from "@/contexts/auth-context";
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useTranslations } from 'next-intl';
 
 const Header = () => {
+  const t = useTranslations('common');
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
@@ -36,20 +39,21 @@ const Header = () => {
           href="/" 
           className="text-2xl font-bold hover:opacity-80 transition-opacity"
         >
-          FitConnect
+          {t('appName')}
         </Link>
         <div className="flex items-center space-x-4">
+          <LanguageSwitcher />
           <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} variant="ghost">
             {theme === 'light' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
           {pathname !== '/login' && (
             <Link href="/login">
-              <Button>Login</Button>
+              <Button>{t('login')}</Button>
             </Link>
           )}
           {pathname !== '/register' && (
             <Link href="/register">
-              <Button variant="outline">Sign Up</Button>
+              <Button variant="outline">{t('signup')}</Button>
             </Link>
           )}
         </div>
@@ -58,4 +62,4 @@ const Header = () => {
   );
 };
 
-export default Header; 
+export default Header;

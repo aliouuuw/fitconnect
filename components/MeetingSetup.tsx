@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   DeviceSettings,
   VideoPreview,
@@ -15,6 +16,7 @@ const MeetingSetup = ({
 }: {
   setIsSetupComplete: (value: boolean) => void;
 }) => {
+  const t = useTranslations('meetingSetup');
   // https://getstream.io/video/docs/react/guides/call-and-participant-state/#call-state
   const { useCallEndedAt, useCallStartsAt } = useCallStateHooks();
   const callStartsAt = useCallStartsAt();
@@ -47,21 +49,23 @@ const MeetingSetup = ({
   if (callTimeNotArrived)
     return (
       <Alert
-        title={`Your Meeting has not started yet. It is scheduled for ${callStartsAt.toLocaleString()}`}
+        title={t('notStarted', {
+          time: callStartsAt.toLocaleString(),
+        })}
       />
     );
 
   if (callHasEnded)
     return (
       <Alert
-        title="The call has been ended by the host"
+        title={t('ended')}
         iconUrl="/icons/call-ended.svg"
       />
     );
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-2">
-      <h1 className="text-center text-2xl font-bold">Setup</h1>
+      <h1 className="text-center text-2xl font-bold">{t('title')}</h1>
       <div className="w-[600px]">
         <VideoPreview />
       </div>
@@ -72,7 +76,7 @@ const MeetingSetup = ({
             checked={isMicCamToggled}
             onChange={(e) => setIsMicCamToggled(e.target.checked)}
           />
-          Join with mic and camera off
+          {t('joinWithoutDevices')}
         </label>
         <DeviceSettings />
       </div>
@@ -80,11 +84,10 @@ const MeetingSetup = ({
         className="rounded-md bg-green-500 px-4 py-2.5"
         onClick={() => {
           call.join();
-
           setIsSetupComplete(true);
         }}
       >
-        Join meeting
+        {t('joinButton')}
       </Button>
     </div>
   );
