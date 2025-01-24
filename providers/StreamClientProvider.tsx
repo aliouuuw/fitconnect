@@ -20,8 +20,14 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
       apiKey: API_KEY
     });
 
-    if (!isLoaded || !user) return;
+    if (!isLoaded) return;
     if (!API_KEY) throw new Error('Stream API key is missing');
+    
+    // If no user, render children without Stream client
+    if (!user) {
+      setVideoClient(undefined);
+      return;
+    }
 
     const client = new StreamVideoClient({
       apiKey: API_KEY,
@@ -36,7 +42,11 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
     setVideoClient(client);
   }, [user, isLoaded]);
 
-  if (!videoClient) return <Loader />;
+  // Show loader only while auth is loading
+  if (!isLoaded) return <Loader />;
+  
+  // If no user or no video client needed, just render children
+  if (!user || !videoClient) return <>{children}</>;
 
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };
