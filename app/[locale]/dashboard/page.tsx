@@ -8,7 +8,7 @@ import { useClasses } from "@/contexts/class-context"
 import { useClients } from "@/contexts/client-context"
 import { useAuth } from "@/contexts/auth-context"
 import { format, isToday } from "date-fns"
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
 import { useStreamVideoClient } from '@stream-io/video-react-sdk'
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
@@ -53,8 +53,9 @@ export default function DashboardPage() {
     }))
 
   const handleStartClass = async (classId: string) => {
+    console.log("ClassId: ", classId)
     if (!client || !user) {
-      console.error('Client or user not found: ', client, user);
+      console.log('Client or user not found: ', client, user);
       toast({
         title: "Error",
         description: "Failed to start the class. Please try again.",
@@ -66,6 +67,10 @@ export default function DashboardPage() {
     setLoadingClassId(classId)
     try {
       const classData = classes.find(c => c.id === classId);
+      if (!classData) {
+        throw new Error('Class not found');
+      }
+
       const role = user.role === 'coach' ? 'admin' : 'client';
 
       const id = crypto.randomUUID()
