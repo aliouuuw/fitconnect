@@ -4,7 +4,9 @@
     "notStarted": "Votre réunion n'a pas encore commencé. Elle est prévue pour {time}",
     "ended": "L'appel a été terminé par l'hôte",
     "joinWithoutDevices": "Rejoindre sans micro ni caméra",
-    "joinButton": "Rejoindre la réunion"
+    "joinButton": "Rejoindre la réunion",
+    "refreshButton": "Actualiser la page",
+    "refreshButtonNotice": "Patienter encore et actualiser la page pour réessayer à l'heure de rejoindre la classe"
   },
   "common": {
     "appName": "FitConnect",

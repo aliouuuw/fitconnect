@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Dumbbell, Users, Video, Calendar } from "lucide-react"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { getTranslations } from 'next-intl/server';
+import Header from "@/components/Header";
 
 export default async function Home() {
   const t = await getTranslations('home');
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <main className="relative bg-background py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">

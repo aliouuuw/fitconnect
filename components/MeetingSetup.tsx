@@ -46,12 +46,17 @@ const MeetingSetup = ({
     }
   }, [isMicCamToggled, call.camera, call.microphone]);
 
+  console.log("Call time not arrived: ", callTimeNotArrived)
+
   if (callTimeNotArrived)
     return (
       <Alert
         title={t('notStarted', {
           time: callStartsAt.toLocaleString(),
         })}
+        showRefreshButton={true}
+        refreshButtonText={t('refreshButton')}
+        refreshButtonNotice={t('refreshButtonNotice')}
       />
     );
 
@@ -64,7 +69,7 @@ const MeetingSetup = ({
     );
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-2">
+    <div className="flex w-full flex-col items-center justify-center gap-2 py-4">
       <h1 className="text-center text-2xl font-bold">{t('title')}</h1>
       <div className="w-[600px]">
         <VideoPreview />

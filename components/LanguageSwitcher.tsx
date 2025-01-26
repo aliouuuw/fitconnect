@@ -7,7 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { useRouter} from "@/i18n/routing"
 import { useLocale } from 'next-intl'
 
 export function LanguageSwitcher() {
@@ -16,9 +17,9 @@ export function LanguageSwitcher() {
   const locale = useLocale()
 
   const switchLanguage = (newLocale: string) => {
-    // Remove the current locale from the pathname if it exists
-    const newPathname = pathname.replace(`/${locale}`, '')
-    router.push(`/${newLocale}${newPathname}`)
+    // Handle root path specially
+    const pathNameWithoutLocale = pathname === `/${locale}` ? '/' : pathname.replace(`/${locale}`, '')
+    router.push(pathNameWithoutLocale || '/', { locale: newLocale })
   }
 
   return (

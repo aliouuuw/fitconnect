@@ -10,7 +10,7 @@ import { useAuth } from "@/contexts/auth-context"
 import { format, isToday } from "date-fns"
 import { useRouter } from '@/i18n/routing'
 import { useStreamVideoClient } from '@stream-io/video-react-sdk'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 
 export default function DashboardPage() {
@@ -23,6 +23,15 @@ export default function DashboardPage() {
   const client = useStreamVideoClient()
   const { toast } = useToast()
   const [loadingClassId, setLoadingClassId] = useState<string | null>(null)
+
+
+  // Load classes
+  useEffect(() => {
+    console.log("Loading classes")
+    return () => {
+      console.log("Unloading classes")
+    }
+  }, [])
 
   // Calculate statistics
   const todayClasses = classes.filter(class_ => 
@@ -55,7 +64,7 @@ export default function DashboardPage() {
   const handleStartClass = async (classId: string) => {
     console.log("ClassId: ", classId)
     if (!client || !user) {
-      console.log('Client or user not found: ', client, user);
+      console.log('Client or user not found');
       toast({
         title: "Error",
         description: "Failed to start the class. Please try again.",
@@ -85,7 +94,7 @@ export default function DashboardPage() {
         }
       });
 
-      router.push(`/classroom/${call.call.id}`)
+      router.push(`/dashboard/classroom/${call.call.id}`)
       toast({
         title: "Class Started",
         description: "You are now in the class. Enjoy!",

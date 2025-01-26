@@ -4,7 +4,9 @@
     "notStarted": "Your Meeting has not started yet. It is scheduled for {time}",
     "ended": "The call has been ended by the host",
     "joinWithoutDevices": "Join with mic and camera off",
-    "joinButton": "Join meeting"
+    "joinButton": "Join meeting",
+    "refreshButton": "Refresh page",
+    "refreshButtonNotice": "Please wait and refresh the page to try to rejoin when it is time to join the class."
   },
   "common": {
     "appName": "FitConnect",

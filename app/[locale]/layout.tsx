@@ -7,12 +7,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/contexts/auth-context";
 import { ClassProvider } from "@/contexts/class-context";
 import { ClientProvider } from "@/contexts/client-context";
-import Header from "@/components/ui/Header";
 import StreamVideoProvider from "@/providers/StreamClientProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { getCurrentUser } from "@/actions/auth";
 
 // These providers are mocked for now
 
@@ -35,7 +35,8 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
- 
+
+  const currentUser = await getCurrentUser();
   const messages = await getMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -47,12 +48,11 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider>
+            <AuthProvider currentUser={currentUser}>
               <ClassProvider>
                 <ClientProvider>
                   <StreamVideoProvider>
                     <main>
-                      <Header />
                       {children}
                     </main>
                   </StreamVideoProvider>

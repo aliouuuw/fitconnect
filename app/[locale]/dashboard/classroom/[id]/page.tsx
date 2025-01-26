@@ -10,7 +10,6 @@ import { useGetCallById } from '@/hooks/useGetCallById';
 import Alert from '@/components/Alert';
 import MeetingSetup from '@/components/MeetingSetup';
 import MeetingRoom from '@/components/MeetingRoom';
-import Header from "@/components/ui/Header";
 import Loader from "@/components/Loader";
 
 export default function ClassroomPage({}) {
@@ -34,8 +33,7 @@ export default function ClassroomPage({}) {
   if (notAllowed) return <Alert title="You are not allowed to join this meeting" />;
 
   return (
-    <div className="h-screen max-h-screen w-full">
-      <Header />
+    <div className="h-full w-full">
       <main>
         <StreamCall call={call}>
           <StreamTheme>

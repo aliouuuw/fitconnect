@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Sun, Moon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from "@/contexts/auth-context";
@@ -33,7 +33,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-background p-4 shadow-md">
+    <header className="bg-background p-4 shadow-md w-full">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link 
           href="/" 
@@ -46,13 +46,13 @@ const Header = () => {
           <Button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} variant="ghost">
             {theme === 'light' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
-          {pathname !== '/login' && (
-            <Link href="/login">
+          {!pathname.includes('/login') && (
+            <Link href={`/login`}>
               <Button>{t('login')}</Button>
             </Link>
           )}
-          {pathname !== '/register' && (
-            <Link href="/register">
+          {!pathname.includes('/register') && (
+            <Link href={`/register`}>
               <Button variant="outline">{t('signup')}</Button>
             </Link>
           )}

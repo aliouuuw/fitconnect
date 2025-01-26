@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { StreamVideoClient, StreamVideo } from '@stream-io/video-react-sdk';
+import { StreamVideoClient, StreamVideo, useCall } from '@stream-io/video-react-sdk';
 import { useAuth } from "@/contexts/auth-context";
 import { tokenProvider } from '@/actions/stream.actions';
 import Loader from '@/components/Loader';
@@ -11,6 +11,7 @@ const API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient>();
   const { user, isLoaded } = useAuth();
+  const call = useCall();
 
   useEffect(() => {
     console.log('Debug Stream Client:', {
@@ -28,6 +29,9 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
       setVideoClient(undefined);
       return;
     }
+    
+    call?.camera.disable();
+    call?.microphone.disable();
 
     const client = new StreamVideoClient({
       apiKey: API_KEY,
@@ -40,7 +44,7 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
     });
 
     setVideoClient(client);
-  }, [user, isLoaded]);
+  }, [user, isLoaded, call]);
 
   // Show loader only while auth is loading
   if (!isLoaded) return <Loader />;
